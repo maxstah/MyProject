@@ -29,24 +29,32 @@ public class MainController {
         view.write("Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: database|userName|password");
 
         while (true) {
-            String string = view.read();
-            String[] data = string.split("\\|");
-            String databaseName = data[0];
-            String userName = data[1];
-            String password = data[2];
             try {
+                String string = view.read();
+                String[] data = string.split("\\|");
+                if (data.length != 3) {
+                    throw new IllegalArgumentException("Неверно количество параметров разделенных знаком '|', ожидается 3, но есть: " + data.length);
+                }
+                String databaseName = data[0];
+                String userName = data[1];
+                String password = data[2];
+
                 manager.connect(databaseName, userName, password);
                 break;
             } catch (Exception e) {
-                String message = e.getMessage();
-                if (e.getCause() != null) {
-                    message += " " + e.getCause().getMessage();
-                }
-                view.write("Неудача! по причине: " + message);
-                view.write("Повтори попытку.");
+                printError(e);
             }
         }
 
         view.write("Успех!");
+    }
+
+    private void printError(Exception e) {
+        String message = e.getMessage();
+        if (e.getCause() != null) {
+            message += " " + e.getCause().getMessage();
+        }
+        view.write("Неудача! по причине: " + message);
+        view.write("Повтори попытку.");
     }
 }
