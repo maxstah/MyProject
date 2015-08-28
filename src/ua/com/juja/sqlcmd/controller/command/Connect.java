@@ -8,6 +8,8 @@ import ua.com.juja.sqlcmd.view.View;
  */
 public class Connect implements Command {
 
+    private static String COMMAND_SAMPLE = "connect|sqlcmd|postgres|postgres";
+
     private DatabaseManager manager;
     private View view;
 
@@ -25,8 +27,11 @@ public class Connect implements Command {
     public void process(String command) {
         try {
             String[] data = command.split("\\|");
-            if (data.length != 4) { // TODO 4 - magic!
-                throw new IllegalArgumentException("Неверно количество параметров разделенных знаком '|', ожидается 4, но есть: " + data.length);
+            if (data.length != count()) {
+                throw new IllegalArgumentException(
+                        String.format("Неверно количество параметров разделенных " +
+                                "знаком '|', ожидается %s, но есть: %s",
+                                count(), data.length));
             }
             String databaseName = data[1];
             String userName = data[2];
@@ -38,6 +43,10 @@ public class Connect implements Command {
         } catch (Exception e) {
             printError(e);
         }
+    }
+
+    private int count() {
+        return COMMAND_SAMPLE.split("\\|").length;
     }
 
     private void printError(Exception e) {
