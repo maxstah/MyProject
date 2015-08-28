@@ -71,30 +71,11 @@ public class DataSet {
         }
     }
 
-//    public void updateFrom(DataSet newValue) {
-//        String[] names = newValue.getNames();
-//        for (int index = 0; index < names.length; index++) {
-//            String name = names[index];
-//            Object value = newValue.get(name);
-//            this.put(name, value);
-//        }
-//    }
-//
-//    public void updateFrom(DataSet newValue) {
-//        String[] names = newValue.getNames();
-//        Object[] values = newValue.getValues();
-//        for (int index = 0; index < names.length; index++) {
-//            String name = names[index];
-//            Object value = values[index];
-//            this.put(name, value);
-//        }
-//    }
-
     @Override
     public String toString() {
-        return "DataSet{\n" +
-                "names:" + Arrays.toString(getNames()) + "\n" +
-                "values:" + Arrays.toString(getValues()) + "\n" +
+        return "{" +
+                "names:" + Arrays.toString(getNames()) + ", " +
+                "values:" + Arrays.toString(getValues()) +
                 "}";
     }
 }

@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.juja.sqlcmd.controller.Main;
+import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DatabaseManager;
+import ua.com.juja.sqlcmd.model.JDBCDatabaseManager;
 
 import java.io.*;
 
@@ -16,9 +19,11 @@ public class IntegrationTest {
 
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
+    private DatabaseManager databaseManager;
 
     @Before
     public void setup() {
+        databaseManager = new JDBCDatabaseManager();
         out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
 
@@ -44,6 +49,10 @@ public class IntegrationTest {
                 "\t\tдля подключения к базе данных, с которой будем работать\r\n" +
                 "\tlist\r\n" +
                 "\t\tдля получения списка всех таблиц базы, к которой подключились\r\n" +
+                "\tclear|tableName\r\n" +
+                "\t\tдля очистки всей таблицы\r\n" +
+                "\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN\r\n" +
+                "\t\tдля создания записи в таблице\r\n" +
                 "\tfind|tableName\r\n" +
                 "\t\tдля получения содержимого таблицы 'tableName'\r\n" +
                 "\thelp\r\n" +
@@ -203,6 +212,7 @@ public class IntegrationTest {
                 "--------------------\r\n" +
                 "|name|password|id|\r\n" +
                 "--------------------\r\n" +
+                "--------------------\r\n" +
                 "Введи команду (или help для помощи):\r\n" +
                 // exit
                 "До скорой встречи!\r\n", getData());
@@ -234,6 +244,82 @@ public class IntegrationTest {
                 "Введи команду (или help для помощи):\r\n" +
                 // list
                 "[qwe]\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // exit
+                "До скорой встречи!\r\n", getData());
+    }
+
+    @Test
+    public void testConnectWithError() {
+        // given
+        in.add("connect|sqlcmd");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("Привет юзер!\r\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
+                // connect sqlcmd
+                "Неудача! по причине: Неверно количество параметров разделенных знаком '|', ожидается 4, но есть: 2\r\n" +
+                "Повтори попытку.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // exit
+                "До скорой встречи!\r\n", getData());
+    }
+
+    @Test
+    public void testFindAfterConnect_withData() {
+        // given
+//        databaseManager.connect("sqlcmd", "postgres", "postgres");
+//
+//        databaseManager.clear("user");
+//
+//        DataSet user1 = new DataSet();
+//        user1.put("id", 13);
+//        user1.put("name", "Stiven");
+//        user1.put("password", "*****");
+//        databaseManager.create("user", user1);
+//
+//        DataSet user2 = new DataSet();
+//        user2.put("id", 14);
+//        user2.put("name", "Eva");
+//        user2.put("password", "+++++");
+//        databaseManager.create("user", user2);
+
+        in.add("connect|sqlcmd|postgres|postgres");
+        in.add("clear|user");
+        in.add("create|user|id|13|name|Stiven|password|*****");
+        in.add("create|user|id|14|name|Eva|password|+++++");
+        in.add("find|user");
+        in.add("exit");
+
+        // when
+        Main.main(new String[0]);
+
+        // then
+        assertEquals("Привет юзер!\r\n" +
+                "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
+                // connect
+                "Успех!\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // clear|user
+                "Таблица user была успешно очищена.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // create|user|id|13|name|Stiven|password|*****
+                "Запись {names:[id, name, password], values:[13, Stiven, *****]} была успешно создана в таблице 'user'.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // create|user|id|14|name|Eva|password|+++++
+                "Запись {names:[id, name, password], values:[14, Eva, +++++]} была успешно создана в таблице 'user'.\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // find|user
+                "--------------------\r\n" +
+                "|name|password|id|\r\n" +
+                "--------------------\r\n" +
+                "|Stiven|*****|13|\r\n" +
+                "|Eva|+++++|14|\r\n" +
+                "--------------------\r\n" +
                 "Введи команду (или help для помощи):\r\n" +
                 // exit
                 "До скорой встречи!\r\n", getData());
