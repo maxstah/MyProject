@@ -20,17 +20,18 @@ public class FindTest {
 
     private DatabaseManager manager;
     private View view;
+    private Command command;
 
     @Before
     public void setup() {
         manager = mock(DatabaseManager.class);
         view = mock(View.class);
+        command = new Find(manager, view);
     }
 
     @Test
     public void testPrintTableData() {
         // given
-        Command command = new Find(manager, view);
         when(manager.getTableColumns("user"))
                 .thenReturn(new String[] {"id", "name", "password"});
 
@@ -65,9 +66,6 @@ public class FindTest {
 
     @Test
     public void testCanProcessFindWithParametersString() {
-        // given
-        Command command = new Find(manager, view);
-
         // when
         boolean canProcess = command.canProcess("find|user");
 
@@ -77,9 +75,6 @@ public class FindTest {
 
     @Test
     public void testCantProcessFindWithoutParametersString() {
-        // given
-        Command command = new Find(manager, view);
-
         // when
         boolean canProcess = command.canProcess("find");
 
@@ -89,9 +84,6 @@ public class FindTest {
 
     @Test
     public void testCantProcessQweString() {
-        // given
-        Command command = new Find(manager, view);
-
         // when
         boolean canProcess = command.canProcess("qwe|user");
 
@@ -102,9 +94,8 @@ public class FindTest {
     @Test
     public void testPrintEmptyTableData() {
         // given
-        Command command = new Find(manager, view);
         when(manager.getTableColumns("user"))
-                .thenReturn(new String[] {"id", "name", "password"});
+                .thenReturn(new String[]{"id", "name", "password"});
 
         DataSet[] data = new DataSet[0];
         when(manager.getTableData("user"))
