@@ -9,22 +9,14 @@ import ua.com.juja.sqlcmd.view.View;
  */
 public class MainController {
 
+    private DatabaseManager manager;
     private Command[] commands;
     private View view;
 
-    public MainController(View view, DatabaseManager manager) {
+    public MainController(View view, DatabaseManager manager, Command... commands) {
         this.view = view;
-        this.commands = new Command[] {
-                new Connect(manager, view),
-                new Help(view),
-                new Exit(view),
-                new IsConnected(manager, view),
-                new List(manager, view),
-                new Clear(manager, view),
-                new Create(manager, view),
-                new Find(manager, view),
-                new Unsupported(view)
-        };
+        this.manager = manager;
+        this.commands = commands;
     }
 
     public void run() {

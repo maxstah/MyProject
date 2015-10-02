@@ -1,5 +1,6 @@
 package ua.com.juja.sqlcmd.controller;
 
+import ua.com.juja.sqlcmd.controller.command.*;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.model.JDBCDatabaseManager;
 import ua.com.juja.sqlcmd.view.Console;
@@ -14,7 +15,17 @@ public class Main {
         View view = new Console();
         DatabaseManager manager = new JDBCDatabaseManager();
 
-        MainController controller = new MainController(view, manager);
+        MainController controller = new MainController(view, manager, new Command[] {
+                new Connect(manager, view),
+                new Help(view),
+                new Exit(view),
+                new IsConnected(manager, view),
+                new List(manager, view),
+                new Clear(manager, view),
+                new Create(manager, view),
+                new Find(manager, view),
+                new Unsupported(view)
+        });
         controller.run();
     }
 }
