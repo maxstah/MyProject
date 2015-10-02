@@ -29,6 +29,13 @@ public class IntegrationTest {
 
         System.setIn(in);
         System.setOut(new PrintStream(out));
+
+        // clear db
+//        in.add("connect|sqlcmd|postgres|postgres");
+//        in.add("clear");
+//        in.add("exit");
+//        Main.main(new String[0]);
+//        out.reset();
     }
 
     @Test
@@ -196,6 +203,7 @@ public class IntegrationTest {
     public void testFindAfterConnect() {
         // given
         in.add("connect|sqlcmd|postgres|postgres");
+        in.add("clear|user");
         in.add("find|user");
         in.add("exit");
 
@@ -207,6 +215,9 @@ public class IntegrationTest {
                 "Введи, пожалуйста имя базы данных, имя пользователя и пароль в формате: connect|database|userName|password\r\n" +
                 // connect
                 "Успех!\r\n" +
+                "Введи команду (или help для помощи):\r\n" +
+                // clear
+                "Таблица user была успешно очищена.\r\n" +
                 "Введи команду (или help для помощи):\r\n" +
                 // find|user
                 "--------------------\r\n" +
