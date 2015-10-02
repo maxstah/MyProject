@@ -11,6 +11,9 @@ import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -32,8 +35,7 @@ public class FindTest {
     @Test
     public void testPrintTableData() {
         // given
-        when(manager.getTableColumns("user"))
-                .thenReturn(new String[] {"id", "name", "password"});
+        setupTableColumns("user", "id", "name", "password");
 
         DataSet user1 = new DataSet();
         user1.put("id", 12);
@@ -59,6 +61,11 @@ public class FindTest {
                     "|12|Stiven|*****|, " +
                     "|13|Eva|+++++|, " +
                     "--------------------]");
+    }
+
+    private void setupTableColumns(String tableName, String... columns) {
+        when(manager.getTableColumns(tableName))
+                .thenReturn(new LinkedHashSet<String>(Arrays.asList(columns)));
     }
 
     private void shouldPrint(String expected) {
@@ -97,8 +104,7 @@ public class FindTest {
     @Test
     public void testPrintEmptyTableData() {
         // given
-        when(manager.getTableColumns("user"))
-                .thenReturn(new String[]{"id", "name", "password"});
+        setupTableColumns("user", "id", "name", "password");
 
         when(manager.getTableData("user")).thenReturn(new DataSet[0]);
 
@@ -115,8 +121,7 @@ public class FindTest {
     @Test
     public void testPrintTableDataWithOneColumn() {
         // given
-        when(manager.getTableColumns("test"))
-                .thenReturn(new String[]{"id"});
+        setupTableColumns("test", "id");
 
         DataSet user1 = new DataSet();
         user1.put("id", 12);
