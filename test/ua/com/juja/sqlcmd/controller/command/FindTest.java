@@ -1,11 +1,13 @@
 package ua.com.juja.sqlcmd.controller.command;
 
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 import ua.com.juja.sqlcmd.model.DataSet;
 import ua.com.juja.sqlcmd.model.DataSetImpl;
@@ -145,4 +147,18 @@ public class FindTest {
                 "|13|, " +
                 "--------------------]");
     }
+
+    @Test
+    public void testErrorWhenBaCommandFormat() {
+        // when
+        try {
+            command.process("find|user|blabla");
+            fail("Ecpected exception");
+        } catch (IllegalArgumentException e) {
+            // then
+            assertEquals("Формат команды 'find|tableName', а ты ввел: find|user|blabla",
+                    e.getMessage());
+        }
+    }
+
 }
