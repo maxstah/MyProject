@@ -26,6 +26,7 @@ public class Create implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
+        // TODO сделать у всех команд одинаковый формат вывода сообщений об ошибке
         if (data.length % 2 != 0) {
             throw new IllegalArgumentException(String.format("Должно быть четное " +
                     "количество параметров в формате " +
