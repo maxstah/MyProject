@@ -8,6 +8,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 import ua.com.juja.sqlcmd.model.DataSet;
+import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
@@ -38,12 +39,12 @@ public class FindTest {
         // given
         setupTableColumns("user", "id", "name", "password");
 
-        DataSet user1 = new DataSet();
+        DataSet user1 = new DataSetImpl();
         user1.put("id", 12);
         user1.put("name", "Stiven");
         user1.put("password", "*****");
 
-        DataSet user2 = new DataSet();
+        DataSet user2 = new DataSetImpl();
         user2.put("id", 13);
         user2.put("name", "Eva");
         user2.put("password", "+++++");
@@ -124,10 +125,10 @@ public class FindTest {
         // given
         setupTableColumns("test", "id");
 
-        DataSet user1 = new DataSet();
+        DataSet user1 = new DataSetImpl();
         user1.put("id", 12);
 
-        DataSet user2 = new DataSet();
+        DataSet user2 = new DataSetImpl();
         user2.put("id", 13);
 
         when(manager.getTableData("test"))
