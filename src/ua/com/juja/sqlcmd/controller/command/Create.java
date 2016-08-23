@@ -5,9 +5,6 @@ import ua.com.juja.sqlcmd.model.DataSetImpl;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-/**
- * Created by indigo on 28.08.2015.
- */
 public class Create implements Command {
 
     private final DatabaseManager manager;

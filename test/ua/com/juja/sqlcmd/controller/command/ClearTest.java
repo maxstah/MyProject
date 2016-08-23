@@ -14,9 +14,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
-/**
- * Created by indigo on 01.09.2015.
- */
 public class ClearTest {
 
     private DatabaseManager manager;

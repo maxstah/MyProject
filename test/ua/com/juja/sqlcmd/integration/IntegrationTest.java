@@ -12,9 +12,6 @@ import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by indigo on 28.08.2015.
- */
 public class IntegrationTest {
 
     private ConfigurableInputStream in;

@@ -6,9 +6,6 @@ import ua.com.juja.sqlcmd.view.View;
 import java.util.Arrays;
 import java.util.Set;
 
-/**
- * Created by indigo on 28.08.2015.
- */
 public class Tables implements Command {
 
     private DatabaseManager manager;

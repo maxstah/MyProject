@@ -20,9 +20,6 @@ import java.util.LinkedHashSet;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by indigo on 01.09.2015.
- */
 public class FindTest {
 
     private DatabaseManager manager;

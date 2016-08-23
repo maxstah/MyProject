@@ -3,9 +3,6 @@ package ua.com.juja.sqlcmd.model;
 import java.sql.*;
 import java.util.*;
 
-/**
- * Created by indigo on 21.08.2015.
- */
 public class JDBCDatabaseManager implements DatabaseManager {
 
     private Connection connection;

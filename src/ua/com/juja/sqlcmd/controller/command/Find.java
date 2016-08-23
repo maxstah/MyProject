@@ -7,9 +7,6 @@ import ua.com.juja.sqlcmd.view.View;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by indigo on 28.08.2015.
- */
 public class Find implements Command {
 
     private DatabaseManager manager;

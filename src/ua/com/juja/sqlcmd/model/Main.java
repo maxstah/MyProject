@@ -3,9 +3,6 @@ package ua.com.juja.sqlcmd.model;
 import java.sql.*;
 import java.util.Random;
 
-/**
- * Created by indigo on 21.08.2015.
- */
 public class Main {
     public static void main(String[] argv) throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");

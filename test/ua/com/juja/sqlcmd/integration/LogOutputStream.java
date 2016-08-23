@@ -3,9 +3,6 @@ package ua.com.juja.sqlcmd.integration;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- * Created by indigo on 28.08.2015.
- */
 public class LogOutputStream extends OutputStream {
 
     private String log;

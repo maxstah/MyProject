@@ -4,9 +4,6 @@ import ua.com.juja.sqlcmd.controller.command.Command;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-/**
- * Created by indigo on 28.08.2015.
- */
 public class IsConnected implements Command {
 
     private DatabaseManager manager;

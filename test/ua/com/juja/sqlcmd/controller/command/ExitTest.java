@@ -7,9 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
-/**
- * Created by indigo on 01.09.2015.
- */
 public class ExitTest {
 
     private FakeView view = new FakeView();

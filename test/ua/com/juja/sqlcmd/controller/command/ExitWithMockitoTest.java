@@ -7,9 +7,6 @@ import ua.com.juja.sqlcmd.view.View;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.*;
 
-/**
- * Created by indigo on 01.09.2015.
- */
 public class ExitWithMockitoTest {
 
     private View view = Mockito.mock(View.class);

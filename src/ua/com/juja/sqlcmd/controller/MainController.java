@@ -4,14 +4,16 @@ import ua.com.juja.sqlcmd.controller.command.*;
 import ua.com.juja.sqlcmd.model.DatabaseManager;
 import ua.com.juja.sqlcmd.view.View;
 
-/**
- * Created by indigo on 25.08.2015.
- */
+import java.util.AbstractList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainController {
 
     private DatabaseManager manager;
     private Command[] commands;
     private View view;
+    private List<String> history = new LinkedList<>();
 
     public MainController(View view, DatabaseManager manager, Command... commands) {
         this.view = view;
@@ -38,6 +40,7 @@ public class MainController {
                 try {
                     if (command.canProcess(input)) {
                         command.process(input);
+                        history.add(input);
                         break;
                     }
                 } catch (Exception e) {
